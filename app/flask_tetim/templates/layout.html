@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='main.css')}}">
+
+    <script>
+        setTimeout(function() {document.getElementById("alert").remove();}, 5000);
+    </script>
+
+    {% if title %}
+        <title> Is this-picture real? - {{title}}</title>
+    {% else %}
+        <title>Is this picture real?</title>
+    {% endif %}
+</head>
+<body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="{{ url_for('home') }}">Play</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="{{ url_for('highscore') }}">High Scores</a>
+                <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
+                <a class="nav-item nav-link" href="{{ url_for('contacts') }}">Contacts</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+            {% block content %}{% endblock %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{category}}" id="alert">
+                    {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+        <div class="col-md-4">
+            {% block score %}{% endblock %}
+          <div class="content-section">
+            <h3>What does it mean "Real"?</h3>
+            <p class='text-muted'>
+                Each picture could be a real one or an AI-generated one
+                using as unique input the caption above the image.
+                In this game, "Real" means a photo taken by a person or a drawing made by an artist.
+                For more info see the About section.
+                <br>
+                Models used to generate fake images are secret and have the following alias:
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">Woody</li>
+                <li class="list-group-item list-group-item-light">Igloo</li>
+                <li class="list-group-item list-group-item-light">Paradise</li>
+                <li class="list-group-item list-group-item-light">Eva</li>
+                <li class="list-group-item list-group-item-light">Braid</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+        <div class="container text-center p-3">
+            <div class="disclaimer text-muted">
+              Which Picture is Real has been developed by Edoardo C. at the
+                    University of Pisa as part of his Master Thesis
+            </div>
+            <p class="copyright text-muted">
+                Copyright © 2022
+            </p>
+        </div>
+
+    </footer>
+
+    {% if cookies_check() %}
+        {# Already constent #}
+    {% else %}
+        {# show a cookie consent banner #}
+        <div id="cookie-consent-container">
+            <img src="static/images/cookies.png" width="32px"/>
+            <p>
+                Our website uses cookies to provide your browsing experience and
+                relevant information. Before continuing to use our website, you agree &
+                accept of our <a href="about#data_collection">Cookie Policy & Privacy.</a>
+            </p>
+            <button id="cookie-consent" class="btn btn-info">I Consent</button>
+        </div>
+        <script>
+            var fn = function () {
+                document.cookie = "cookie_consent=true";
+                document.getElementById('cookie-consent-container').hidden = true;
+            };
+            document.getElementById('cookie-consent').onclick = fn;
+        </script>
+    {% endif %}
+
+   <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

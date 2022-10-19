@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Results</h1>
+      <div class="content-section  text-center">
+          <h2>Your score is {{ user_score }}/20 and it takes {{user_time}} seconds </h2>
+          {% if num_best < 10 or (user_score > min_best_score.score or (user_score == min_best_score.score and user_time < min_best_score.seconds)) %}
+             <p>Congratulations! If you want you can save your result. What is your username? (2-10 characters)</p>
+              <form method="POST" action="">
+                  {{ form.hidden_tag() }}
+                  <div class="form-group">
+                      {{ form.name.label(class="form-control-label") }}
+                      {{ form.name(class="form-control form-control-lg") }}
+                  </div>
+                  <div class="form-group">
+                      {{ form.submit_button(class="btn btn-success") }}
+                  </div>
+              </form>
+          {% else %}
+            <p>Unfortunately your score is not sufficient to be saved in the result page. For this model you need at least {{ min_best_score.score }}/20</p>
+          {% endif %}
+      </div>
+{% endblock content %}

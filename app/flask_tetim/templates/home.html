@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Is this Picture real?</h1>
+      <div class="content-section  text-center">
+          {% if lang=="English" %}
+            <h2>"{{ question.caption }}"</h2>
+          {% else %}
+            <h2>"{{ question.caption_ita}}"</h2>
+          {% endif %}
+          <img src="{{image_file}}" width="256px">
+          {% if lang=="English" %}
+            <p class="article-content">Is this picture real? (made by a man and not AI-generated)</p>
+          {% else %}
+            <p class="article-content">E' quest'immagine vera? (fatta da un uomo e non generata da una AI)</p>
+          {% endif %}
+
+          <form method="POST" action="">
+             {{ form.hidden_tag() }}
+              <div class="form-group">
+                  {{ form.real_button(class="btn btn-success") }}
+                  {{ form.fake_button(class="btn btn-danger") }}
+              </div>
+          </form>
+      </div>
+{% endblock content %}
+
+{% block score %}
+
+<div class="content-section" id="score">
+    <h4 class="text-center mb-4">{{model}}</h4>
+    <h4 class="text-center">Score: </h4>
+    <p class="text-center text-muted">{{score}}/20</p>
+</div>
+
+{% endblock score %}

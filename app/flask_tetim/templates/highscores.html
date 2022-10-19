@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Choose the model</h1>
+      <div class="content-section  text-center">
+          <form method="POST" action="">
+              {{ form.hidden_tag() }}
+              <div class="form-group">
+                  {{ form.model }}
+              </div>
+              <div class="form-group">
+                  {{ form.show_button(class="btn btn-info") }}
+              </div>
+          </form>
+      </div>
+    {% if choice %}
+    <div class="wrapper">
+        <table class="table">
+        <caption>High Scores of {{ choice }}</caption>
+        <thead class="thead-dark">
+          <th>Pos</th>
+          <th>Name</th>
+          <th>Score</th>
+          <th>Time</th>
+        </thead>
+        <tbody>
+            {% for score in best_scores %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ score.username }}</td>
+                <td>{{ score.score }}</td>
+                <td>{{ score.seconds }} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        </div>
+    {% endif %}
+{% endblock content %}
