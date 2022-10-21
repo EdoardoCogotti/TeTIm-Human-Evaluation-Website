@@ -54,7 +54,7 @@ class DatabaseLoader:
 
         with connection:
 
-            # check if database is empty
+            # check if question table is empty
             try:
                 sql = "SELECT COUNT(*) FROM question"
                 cur = connection.cursor()

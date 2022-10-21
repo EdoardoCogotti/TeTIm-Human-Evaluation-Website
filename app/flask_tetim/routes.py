@@ -13,6 +13,17 @@ import random
 num_images = 20
 models = ['DALLE2', 'Latent Diffusion', 'Stable Diffusion', 'Craiyon', 'GLIDE']
 questions = []
+
+'''
+The real name of each model is aliased in order to reduce biases and to hide dataset in the deploy phase.
+To do this we use model_map dictionary
+
+In order to hide the name of the alias name in the src attribute of the img tag in the website we substitute
+with a number string. This string is sampled from a list of possible values to avoid one-to-one relationship.
+Random number string is avoid for performance reasons, in particular to exploit the cache
+
+See nginx.conf
+'''
 # mask_map = {'Craiyon': 1, 'DALLE2': 2, 'GLIDE': 3, 'Latent Diffusion': 4, 'Stable Diffusion': 5, 'real': 6}
 mask_map = {'Craiyon': ["17654", "13496", "10935"], 'DALLE2': ["25498", "29160", "20375"],
             'GLIDE': ["30473", "34267", "38752"], 'Latent Diffusion': ["43658", "45954", "44217"],

@@ -10,7 +10,7 @@ class AnswerForm(FlaskForm):
 
 class ChooseModelPlayForm(FlaskForm):
     model = SelectField('Models', choices=['Random', 'Woody', 'Igloo', 'Paradise', 'Eva', 'Braid'])
-    language = RadioField('Models', choices=['English', 'Italiano'], default='English')
+    language = RadioField('Language', choices=['English', 'Italiano'], default='English')
     play_button = SubmitField('Play')
 
 
